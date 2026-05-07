@@ -3,15 +3,32 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Home from "./components/pages/Home";
+import Audit from "./components/pages/Audit";
+import Report from "./components/pages/Report";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+
 
   return (
     <>
-     <h3>Hey, this is a AI audit</h3>
+      <BrowserRouter>
+        {/* Navbar */}
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/audit" element={<Audit />} />
+
+          <Route path="/report/:id" element={<Report />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
-
 export default App

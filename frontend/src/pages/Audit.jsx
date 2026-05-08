@@ -2,23 +2,30 @@ import { useEffect, useState } from "react";
 import ToolCard from "../components/ToolCard";
 
 const Audit = () => {
-  const [auditData, setAuditData] = useState({
-    teamSize: "",
-    useCase: "",
-    tools: [
-      {
-        tool: "",
-        plan: "",
-        monthlySpend: "",
-        seats: ""
-      }
-    ]
-  });
+  const [auditData, setAuditData] = useState(() => {
+
+  const savedData = localStorage.getItem("auditData");
+
+  return savedData
+    ? JSON.parse(savedData)
+    : {
+        teamSize: "",
+        useCase: "",
+        tools: [
+          {
+            tool: "",
+            plan: "",
+            monthlySpend: "",
+            seats: ""
+          }
+        ]
+      };
+});
 
   // Load localStorage
   useEffect(() => {
-    const savedData = localStorage.getItem("auditData");
 
+    const savedData = localStorage.getItem("auditData");
     if (savedData) {
       setAuditData(JSON.parse(savedData));
     }
@@ -26,10 +33,13 @@ const Audit = () => {
 
   // Save localStorage
   useEffect(() => {
+    // console.log(auditData);
     localStorage.setItem(
       "auditData",
       JSON.stringify(auditData)
     );
+    console.log(localStorage.getItem("auditData"));
+
   }, [auditData]);
 
   // Update team size/use case
@@ -42,9 +52,18 @@ const Audit = () => {
 
   // Update tool fields
   const updateTool = (index, field, value) => {
-    const updatedTools = [...auditData.tools];
 
-    updatedTools[index][field] = value;
+    const updatedTools = auditData.tools.map((tool, i) => {
+
+      if (i === index) {
+        return {
+          ...tool,
+          [field]: value
+        };
+      }
+
+      return tool;
+    });
 
     setAuditData({
       ...auditData,

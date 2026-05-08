@@ -19,3 +19,26 @@
 **Plan for tomorrow:**
 - Build spend input form
 - Add localStorage persistence
+
+## Day 2 — 2026-05-08
+
+**Hours worked:** 
+
+**What I did:**
+- Built dynamic AI spend audit form
+- Added reusable ToolCard component
+- Implemented add/remove tool functionality
+- Added localStorage persistence for form state
+- Setup routing for audit flow
+- Improved frontend component structure
+
+**What I learned:**
+- Managing deeply nested React state becomes easier with reusable update handlers and structured component design.
+
+**Blockers / what I'm stuck on:**
+- Thinking through how to structure the audit engine logic cleanly for multiple tools and pricing rules.
+
+**Plan for tomorrow:**
+- Build the audit engine
+- Create recommendation logic for each AI tool
+- Generate audit result summaries and savings calculations

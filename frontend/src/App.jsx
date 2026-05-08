@@ -5,15 +5,12 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import Home from "./components/pages/Home";
-import Audit from "./components/pages/Audit";
-import Report from "./components/pages/Report";
+import Home from "./pages/Home";
+import Audit from "./pages/Audit";
+import Report from "./pages/Report";
 import Navbar from "./components/Navbar";
 
 function App() {
-
-
-
   return (
     <>
       <BrowserRouter>

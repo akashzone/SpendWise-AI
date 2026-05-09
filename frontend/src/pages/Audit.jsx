@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import ToolCard from "../components/ToolCard";
+import { generateAudit } from "../utils/auditEngine";
+import { useNavigate } from "react-router-dom";
 
 const Audit = () => {
+  const navigate = useNavigate();
   const [auditData, setAuditData] = useState(() => {
+    const savedData = localStorage.getItem("auditData");
 
-  const savedData = localStorage.getItem("auditData");
-
-  return savedData
-    ? JSON.parse(savedData)
-    : {
+    return savedData
+      ? JSON.parse(savedData)
+      : {
         teamSize: "",
         useCase: "",
         tools: [
@@ -20,7 +22,18 @@ const Audit = () => {
           }
         ]
       };
-});
+  });
+
+  const handleGenerateAudit = () => {
+    const results = generateAudit(auditData);
+
+    localStorage.setItem(
+      "auditResults",
+      JSON.stringify(results)
+    );
+
+    navigate("/report/local");
+  };
 
   // Load localStorage
   useEffect(() => {
@@ -169,6 +182,7 @@ const Audit = () => {
         </button>
 
         <button
+          onClick={handleGenerateAudit}
           className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium"
         >
           Generate Audit

@@ -1,41 +1,68 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-function Navbar() {
-    return (
-        <nav className="bg-black text-white px-8 py-4 shadow-lg">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+const Navbar = () => {
 
-                <h1 className="text-2xl font-bold text-blue-400">
-                    SpendWise AI
-                </h1>
+  const location = useLocation();
 
-                <div className="flex gap-6 text-lg">
+  const navLinks = [
+    {
+      name: "Home",
+      path: "/",
+    },
+    {
+      name: "Audit",
+      path: "/audit",
+    },
+    {
+      name: "Report",
+      path: "/report/local",
+    },
+  ];
 
-                    <Link
-                        to="/"
-                        className="hover:text-blue-400 transition duration-300"
-                    >
-                        Home
-                    </Link>
+  return (
+    <nav className="sticky top-0 z-50 bg-black border-b border-gray-800">
 
-                    <Link
-                        to="/audit"
-                        className="hover:text-blue-400 transition duration-300"
-                    >
-                        Audit
-                    </Link>
+      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
-                    <Link
-                        to="/report/1234"
-                        className="hover:text-blue-400 transition duration-300"
-                    >
-                        Report
-                    </Link>
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-3xl font-bold text-blue-500"
+        >
+          SpendWise AI
+        </Link>
 
-                </div>
-            </div>
-        </nav>
-    );
-}
+        {/* Links */}
+        <div className="flex items-center gap-6">
+
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`text-lg transition ${
+                location.pathname === link.path
+                  ? "text-white font-semibold"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          {/* CTA */}
+          <Link
+            to="/audit"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl transition"
+          >
+            Start Audit
+          </Link>
+
+        </div>
+
+      </div>
+
+    </nav>
+  );
+};
 
 export default Navbar;

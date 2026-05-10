@@ -42,10 +42,22 @@ export const generateAudit = (auditData) => {
   );
 
   const totalAnnualSavings = totalMonthlySavings * 12;
+  const optimizationScore = Math.max(100 - recommendations.length * 10, 50);
 
+  const toolsAnalyzed = auditData.tools.length;
+
+  let topInsight = "Your AI stack has moderate optimization opportunities.";
+
+  if (totalAnnualSavings > 5000) {
+    topInsight =
+      "Significant annual savings opportunities detected across your AI stack.";
+  }
   return {
     recommendations,
     totalMonthlySavings,
     totalAnnualSavings,
+    optimizationScore,
+    toolsAnalyzed,
+    topInsight,
   };
 };

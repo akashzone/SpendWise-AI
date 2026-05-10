@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Audit from "./pages/Audit";
 import Report from "./pages/Report";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
 
           <Route path="/report/:id" element={<Report />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
+      
     </>
   )
 }

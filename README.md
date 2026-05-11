@@ -152,12 +152,12 @@ Frontend
 
 Add your Vercel deployment link:
 
-https://your-frontend.vercel.app
+https://spend-wise-ai-six.vercel.app/
 Backend
 
 Add your Render deployment link:
 
-https://your-backend.onrender.com
+https://spendwise-ai-0mng.onrender.com
 Future Improvements
 Real AI integration using OpenAI API
 User authentication and authorization

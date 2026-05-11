@@ -1,6 +1,6 @@
 ## Day 1 — 2026-05-07
 
-**Hours worked:** 5
+**Hours worked:** 2
 
 **What I did:**
 - Planned architecture
@@ -22,7 +22,7 @@
 
 ## Day 2 — 2026-05-08
 
-**Hours worked:** 
+**Hours worked:** 2
 
 **What I did:**
 - Built dynamic AI spend audit form
@@ -45,7 +45,7 @@
 
 ## Day 3 — 2026-05-09
 
-**Hours worked:** 6
+**Hours worked:** 3
 
 **What I did:**
 - Built modular audit engine architecture
@@ -71,7 +71,7 @@
 
 ## Day 4 — 2026-05-10
 
-**Hours worked:** 6
+**Hours worked:** 2
 
 ### What I did:
 - Implemented audit analytics engine
@@ -106,3 +106,43 @@
 - Add loading states and UX polish
 - Prepare project for deployment
 - Finalize documentation and README improvements
+
+## Day 5 — 2026-05-11
+
+## Hours worked: 3
+
+What I did:
+Improved responsive design across all pages
+Fixed mobile layout issues and overflow bugs
+Redesigned responsive navbar for mobile, tablet, and desktop
+Improved responsive spacing, typography, and grid layouts
+Enhanced report page UI with premium dashboard styling
+Added responsive analytics cards
+Integrated Recharts for savings visualization
+Added savings analytics chart section
+Fixed Recharts ResponsiveContainer mobile rendering issue
+Added loading state during audit generation
+Improved audit form responsiveness and UX
+Enhanced recommendation cards with yearly savings insights
+Added better empty states for reports and analytics
+Added deployment configuration for backend on Render
+Added production start scripts for backend deployment
+Configured frontend deployment setup for Vercel
+Added React Router deployment rewrite configuration
+Improved overall application polish and consistency
+What I learned:
+Responsive dashboard layouts require careful container sizing and spacing management.
+Recharts components depend heavily on parent container dimensions.
+Deployment environments require production-specific scripts and configurations.
+Mobile-first UI improvements greatly enhance usability and visual consistency.
+Small UI/UX improvements significantly improve the professionalism of SaaS applications.
+Blockers / what I'm stuck on:
+Still thinking about how to make audit summaries feel more realistic without integrating actual AI APIs.
+Need to finalize deployment and verify production builds on both frontend and backend.
+Plan for tomorrow:
+Complete frontend deployment on Vercel
+Complete backend deployment on Render
+Add README screenshots and deployment links
+Perform final production testing
+Fix any remaining deployment or routing issues
+Finalize documentation and project submission

@@ -1,67 +1,54 @@
 import { useEffect, useState } from "react";
-import { generateAudit } from "../utils/auditEngine";
 import { useNavigate } from "react-router-dom";
+import { generateAudit } from "../utils/auditEngine";
 import { toolsData } from "../data/tools";
 
 const Audit = () => {
+
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   const [auditData, setAuditData] = useState(() => {
+
     const savedData = localStorage.getItem("auditData");
 
     return savedData
       ? JSON.parse(savedData)
       : {
-        teamSize: "",
-        useCase: "",
-        tools: [
-          {
-            tool: "",
-            plan: "",
-            monthlySpend: "",
-            seats: ""
-          }
-        ]
-      };
+          teamSize: "",
+          useCase: "coding",
+          tools: [
+            {
+              tool: "",
+              plan: "",
+              monthlySpend: "",
+              seats: "",
+            },
+          ],
+        };
   });
-
-  const handleGenerateAudit = () => {
-    const results = generateAudit(auditData);
-
-    localStorage.setItem(
-      "auditResults",
-      JSON.stringify(results)
-    );
-
-    navigate("/report/local");
-  };
 
   // Load localStorage
   useEffect(() => {
 
     const savedData = localStorage.getItem("auditData");
+
     if (savedData) {
       setAuditData(JSON.parse(savedData));
     }
+
   }, []);
 
   // Save localStorage
   useEffect(() => {
-    // console.log(auditData);
+
     localStorage.setItem(
       "auditData",
       JSON.stringify(auditData)
     );
-    console.log(localStorage.getItem("auditData"));
 
   }, [auditData]);
-
-  // Update team size/use case
-  const handleChange = (e) => {
-    setAuditData({
-      ...auditData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   // Update tool fields
   const updateTool = (index, field, value) => {
@@ -71,7 +58,7 @@ const Audit = () => {
       if (i === index) {
         return {
           ...tool,
-          [field]: value
+          [field]: value,
         };
       }
 
@@ -80,12 +67,13 @@ const Audit = () => {
 
     setAuditData({
       ...auditData,
-      tools: updatedTools
+      tools: updatedTools,
     });
   };
 
-  // Add new tool card
+  // Add tool
   const addTool = () => {
+
     setAuditData({
       ...auditData,
       tools: [
@@ -94,28 +82,50 @@ const Audit = () => {
           tool: "",
           plan: "",
           monthlySpend: "",
-          seats: ""
-        }
-      ]
+          seats: "",
+        },
+      ],
     });
   };
 
-  // Remove tool card
+  // Remove tool
   const removeTool = (index) => {
+
     const updatedTools = auditData.tools.filter(
       (_, i) => i !== index
     );
 
     setAuditData({
       ...auditData,
-      tools: updatedTools
+      tools: updatedTools,
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 py-14 px-6">
+  // Generate report
+  const handleGenerateAudit = () => {
 
-      <div className="max-w-5xl mx-auto">
+    setLoading(true);
+
+    setTimeout(() => {
+
+      const results = generateAudit(auditData);
+
+      localStorage.setItem(
+        "auditResults",
+        JSON.stringify(results)
+      );
+
+      setLoading(false);
+
+      navigate("/report/local");
+
+    }, 1200);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 py-10 md:py-14 px-4 md:px-6">
+
+      <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="mb-10">
@@ -124,13 +134,13 @@ const Audit = () => {
             AI Cost Optimization Audit
           </div>
 
-          <h1 className="text-6xl font-bold mt-5 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold mt-5 leading-tight">
             Analyze Your
             <br />
             AI Spending
           </h1>
 
-          <p className="text-xl text-gray-600 mt-6 max-w-3xl leading-9">
+          <p className="text-lg md:text-xl text-gray-600 mt-6 max-w-3xl leading-8 md:leading-9">
             Identify overspending across AI tools, optimize subscription plans,
             and uncover monthly savings opportunities for your organization.
           </p>
@@ -143,10 +153,10 @@ const Audit = () => {
           {/* LEFT SIDE */}
           <div className="lg:col-span-2 space-y-6">
 
-            {/* Company Info */}
-            <div className="bg-white rounded-3xl shadow-sm p-8">
+            {/* Organization */}
+            <div className="bg-white rounded-3xl shadow-sm p-6 md:p-8">
 
-              <h2 className="text-3xl font-bold">
+              <h2 className="text-2xl md:text-3xl font-bold">
                 Organization Details
               </h2>
 
@@ -158,6 +168,7 @@ const Audit = () => {
 
                 {/* Team Size */}
                 <div>
+
                   <label className="block font-semibold mb-2">
                     Team Size
                   </label>
@@ -178,10 +189,12 @@ const Audit = () => {
                   <p className="text-sm text-gray-500 mt-2">
                     Number of employees actively using AI tools.
                   </p>
+
                 </div>
 
                 {/* Use Case */}
                 <div>
+
                   <label className="block font-semibold mb-2">
                     Primary Use Case
                   </label>
@@ -218,25 +231,23 @@ const Audit = () => {
 
                   </select>
 
-                  <p className="text-sm text-gray-500 mt-2">
-                    Determines optimization recommendations and usage assumptions.
-                  </p>
                 </div>
 
               </div>
 
             </div>
 
-            {/* Tools */}
+            {/* Tool Cards */}
             <div className="space-y-6">
 
               {auditData.tools.map((tool, index) => (
+
                 <div
                   key={index}
-                  className="bg-white rounded-3xl shadow-sm p-8"
+                  className="bg-white rounded-3xl shadow-sm p-6 md:p-8"
                 >
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-4">
 
                     <div>
                       <h2 className="text-2xl font-bold">
@@ -249,12 +260,14 @@ const Audit = () => {
                     </div>
 
                     {auditData.tools.length > 1 && (
+
                       <button
                         onClick={() => removeTool(index)}
                         className="text-red-500 hover:text-red-600 font-medium"
                       >
                         Remove
                       </button>
+
                     )}
 
                   </div>
@@ -263,6 +276,7 @@ const Audit = () => {
 
                     {/* Tool */}
                     <div>
+
                       <label className="block font-semibold mb-2">
                         Tool
                       </label>
@@ -278,23 +292,29 @@ const Audit = () => {
                         }
                         className="w-full border border-gray-300 rounded-2xl p-4"
                       >
+
                         <option value="">
                           Select Tool
                         </option>
 
                         {Object.keys(toolsData).map((toolName) => (
+
                           <option
                             key={toolName}
                             value={toolName}
                           >
                             {toolName}
                           </option>
+
                         ))}
+
                       </select>
+
                     </div>
 
                     {/* Plan */}
                     <div>
+
                       <label className="block font-semibold mb-2">
                         Plan
                       </label>
@@ -310,24 +330,30 @@ const Audit = () => {
                         }
                         className="w-full border border-gray-300 rounded-2xl p-4"
                       >
+
                         <option value="">
                           Select Plan
                         </option>
 
                         {tool.tool &&
                           toolsData[tool.tool]?.map((plan) => (
+
                             <option
                               key={plan}
                               value={plan}
                             >
                               {plan}
                             </option>
+
                           ))}
+
                       </select>
+
                     </div>
 
                     {/* Monthly Spend */}
                     <div>
+
                       <label className="block font-semibold mb-2">
                         Monthly Spend ($)
                       </label>
@@ -345,10 +371,12 @@ const Audit = () => {
                         placeholder="Enter monthly cost"
                         className="w-full border border-gray-300 rounded-2xl p-4"
                       />
+
                     </div>
 
                     {/* Seats */}
                     <div>
+
                       <label className="block font-semibold mb-2">
                         Seats
                       </label>
@@ -366,17 +394,19 @@ const Audit = () => {
                         placeholder="Number of seats"
                         className="w-full border border-gray-300 rounded-2xl p-4"
                       />
+
                     </div>
 
                   </div>
 
                 </div>
+
               ))}
 
               {/* Add Tool */}
               <button
                 onClick={addTool}
-                className="w-full bg-white border-2 border-dashed border-gray-300 rounded-3xl p-6 text-lg font-semibold hover:border-blue-500 hover:text-blue-600 transition"
+                className="w-full bg-white border-2 border-dashed border-gray-300 rounded-3xl p-5 md:p-6 text-lg font-semibold hover:border-blue-500 hover:text-blue-600 transition"
               >
                 + Add Another Tool
               </button>
@@ -388,8 +418,8 @@ const Audit = () => {
           {/* RIGHT SIDE */}
           <div className="space-y-6">
 
-            {/* Audit Tips */}
-            <div className="bg-black text-white rounded-3xl p-8">
+            {/* Tips */}
+            <div className="bg-black text-white rounded-3xl p-6 md:p-8">
 
               <h2 className="text-2xl font-bold">
                 Audit Tips
@@ -417,8 +447,8 @@ const Audit = () => {
 
             </div>
 
-            {/* Summary Box */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-3xl p-8">
+            {/* Summary */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-3xl p-6 md:p-8">
 
               <h2 className="text-2xl font-bold">
                 Potential Savings
@@ -431,12 +461,17 @@ const Audit = () => {
 
             </div>
 
-            {/* Generate Button */}
+            {/* Button */}
             <button
               onClick={handleGenerateAudit}
-              className="w-full bg-black hover:bg-gray-800 text-white py-5 rounded-3xl text-xl font-semibold transition shadow-sm"
+              disabled={loading}
+              className="w-full bg-black hover:bg-gray-800 text-white py-5 rounded-3xl text-lg md:text-xl font-semibold transition shadow-sm disabled:opacity-70"
             >
-              Generate AI Audit Report
+
+              {loading
+                ? "Generating Report..."
+                : "Generate AI Audit Report"}
+
             </button>
 
           </div>

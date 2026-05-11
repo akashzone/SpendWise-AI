@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-
   const location = useLocation();
 
   const navLinks = [
@@ -22,18 +21,18 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-black border-b border-gray-800">
 
-      <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between">
 
         {/* Logo */}
         <Link
           to="/"
-          className="text-3xl font-bold text-blue-500"
+          className="text-2xl md:text-3xl font-bold text-blue-500"
         >
           SpendWise AI
         </Link>
 
-        {/* Links */}
-        <div className="flex items-center gap-6">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
 
           {navLinks.map((link) => (
             <Link
@@ -58,6 +57,14 @@ const Navbar = () => {
           </Link>
 
         </div>
+
+        {/* Mobile CTA */}
+        <Link
+          to="/audit"
+          className="md:hidden bg-blue-600 text-white px-4 py-2 rounded-lg text-sm"
+        >
+          Audit
+        </Link>
 
       </div>
 
